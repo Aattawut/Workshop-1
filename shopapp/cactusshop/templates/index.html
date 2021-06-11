@@ -1,0 +1,32 @@
+{% extends "layouts/base.html" %}
+
+{% load static %}
+{% block content %}
+
+
+<h1>Category All</h1>
+<div class="row">
+    
+    {% for a in categories %}
+    <div class="col-lg-3 card-edit">
+        <div class="card w-100 mt-4 card-edit shadow p-3 mb-5 bg-white rounded">
+            <a href="">
+                <img src="{{ a.category_image.url }}" height="150%" alt="image" class="img-edit w-100 ">
+            </a>
+            <div class="card-body text-center">
+                <h3 class=" font-edit">{{ a.category_name}}</h3>
+                <a href="#" class="btn btn-light">View detail</a>
+                
+            </div>
+    
+        </div>
+       
+    </div>
+    {% endfor %}
+    <div class="col">
+
+    </div>
+    
+</div>
+
+{% endblock %}

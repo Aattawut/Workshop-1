@@ -1,0 +1,32 @@
+/* .container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+} */
+/* main > .container {
+  padding: 60px 15px 0;
+} */
+main > .container {
+    padding: 80px 15px 0;
+  }
+.ft-edit{
+    background-color: rgba(128, 128, 128, 0.438);
+}
+.font-edit{
+    font-size: 22px !important; 
+    font-family: 'Mali', cursive;
+}
+.img-edit{
+    padding: 0;
+    border-radius: 20px;
+    height: 203px;
+    flex: 1;
+   
+}
+.card-edit{
+    border-radius: 25px !important;
+
+}
+a{
+  font-family: 'Mali', cursive;
+}
