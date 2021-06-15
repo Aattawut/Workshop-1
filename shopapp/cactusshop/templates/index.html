@@ -1,32 +1,69 @@
 {% extends "layouts/base.html" %}
 
 {% load static %}
+{% load custom_tags %}
 {% block content %}
 
-
+<title>Home page</title>
 <h1>Category All</h1>
 <div class="row">
     
     {% for a in categories %}
+    {% if a.category_status %}
     <div class="col-lg-3 card-edit">
-        <div class="card w-100 mt-4 card-edit shadow p-3 mb-5 bg-white rounded">
+       
+        <div class="card w-100 mt-4 card-edit shadow bg-body rounded-5  ">
             <a href="">
+                
                 <img src="{{ a.category_image.url }}" height="150%" alt="image" class="img-edit w-100 ">
+                
             </a>
             <div class="card-body text-center">
                 <h3 class=" font-edit">{{ a.category_name}}</h3>
-                <a href="#" class="btn btn-light">View detail</a>
+                <!-- <a href="#" class="btn btn-info">View detail</a> -->
+                
+            </div>
+    
+        </div>
+       
+       
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    
+</div>
+
+<h1 class="mt-4">Product Recommend</h1>
+<div class="row">
+    
+    {% for b in products %}
+    {% for c in image_list %}
+
+    {% if b.id == c %}
+
+    <div class="col-lg-3 card-edit">
+        <div class="card w-100 mt-4 card-edit shadow bg-body rounded-5  ">
+            <a href="">
+                <img src="{{ image_list | get_dict_value:c }}" height="150%" alt="image" class="img-edit w-100 ">
+            </a>
+            <div class="card-body text-center">
+                <h3 class=" font-edit">{{ b.product_name }}</h3>
+                <a href="#" class="btn btn-info">View detail</a>
                 
             </div>
     
         </div>
        
     </div>
+    
+    {% endif %}
     {% endfor %}
-    <div class="col">
+    {% endfor %}
+ 
 
-    </div>
     
 </div>
+
 
 {% endblock %}
