@@ -11,15 +11,23 @@ main > .container {
   }
 .ft-edit{
     background-color: rgba(128, 128, 128, 0.438);
+    margin-bottom: 0;
 }
 .font-edit{
     font-size: 22px !important; 
     font-family: 'Mali', cursive;
+
+}
+.font-edit2{
+    font-size: 22px !important; 
+    font-family: 'Mali', cursive;
+    margin-bottom: 0rem;
 }
 .img-edit{
     padding: 0;
     border-radius: 20px;
     height: 203px;
+  
    
     flex: 1;
    
@@ -30,4 +38,47 @@ main > .container {
 }
 a{
   font-family: 'Mali', cursive;
+  
+
+}
+.a-tag{
+  color: inherit !important; 
+  /* text-decoration: none !important; */
+}
+.mt-edit{
+  margin-top: 5rem !important;
+}
+.posit-edit{
+  margin-top: 10px;
+  margin-left: 10px;
+  border-radius: 50px !important;
+  position:absolute;
+  z-index: 99;
+}
+.badge{
+ 
+  font-size: 0.9em !important;
+  font-family: 'Mali', cursive !important;
+}
+.zoom {
+  padding: 15px;
+  /* background-color: green; */
+  transition: transform .5s; /* Animation */
+  /* width: 200px;
+  height: 200px; */
+  margin: 0 auto;
+  border-radius: 50px;
+  z-index: 9999;
+}
+
+.zoom:hover {
+  transform: scale(1.33); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+/* h1{ 
+  display:inline;
+  background-color:rgb(44, 44, 44);
+  color:#fff;
+} */
+.active{
+  color:rgb(46, 46, 46) !important;
 }

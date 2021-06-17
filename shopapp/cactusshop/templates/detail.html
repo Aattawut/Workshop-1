@@ -1,100 +1,143 @@
 {% extends 'layouts/base.html' %}
+
+{% load humanize %}
+
+{% load static %}
 {% block content %}
+{% load custom_tags %}
+<title>Detail page</title>
+<link rel="stylesheet" type="text/css" href="{% static 'style4detail.css' %}" />
 
-<!-- Carousel wrapper -->
-<div
-  id="carouselBasicExample"
-  class="carousel slide carousel-fade"
-  data-mdb-ride="carousel"
->
-  <!-- Indicators -->
+
+<div class="row">
+  <div class="col-12 col-sm-4  col-md-4 col-lg-2">
+      <h1>Category</h1>
+  </div>
+  <div class="col-12 col-sm-8 col-md-8 col-lg-10  bg-c-edit fw-normal">
+      <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+              <li class="breadcrumb-item" aria-current="page">
+                <a class="a-tag" href="{% url 'cactusshop:index' %}">
+                  <b>
+                    Home
+
+                  </b>
+                </a>
+              </li>
+              <li class="breadcrumb-item" aria-current="page">
+                <a class="a-tag" href="{% url 'cactusshop:category' %}">
+                  <b>
+                    Category
+
+                  </b>
+                </a>
+              </li>
+              {% for k in product_detail %}    
+          
+            <li class="breadcrumb-item" aria-current="page"> 
+              <a class="a-tag" href="{% url 'cactusshop:category' %}?{% if  categ_id == none  %}product_categoryid={{k.product_category_id}}{% endif %}">
+              
+                {{k.product_category}}         
+
+             
+              </a>
+            </li> 
+          
+            <li class="breadcrumb-item active " aria-current="page"> <b >{{k.product_name}}</b></li>          
+                 
+            {% endfor %}      
+          </ol>
+      </nav>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-lg-6 mt-5">
+
+<div id="carouselExampleIndicators" class="carousel slide " data-bs-ride="carousel">
   <div class="carousel-indicators">
-    <button
-      type="button"
-      data-mdb-target="#carouselBasicExample"
-      data-mdb-slide-to="0"
-      class="active"
-      aria-current="true"
-      aria-label="Slide 1"
-    ></button>
-    <button
-      type="button"
-      data-mdb-target="#carouselBasicExample"
-      data-mdb-slide-to="1"
-      aria-label="Slide 2"
-    ></button>
-    <button
-      type="button"
-      data-mdb-target="#carouselBasicExample"
-      data-mdb-slide-to="2"
-      aria-label="Slide 3"
-    ></button>
+    {% for p in imagess%}
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.counter0 == 0 %} active {% endif %}" aria-current="true" aria-label="Slide 1"></button>
+    {% endfor %}
+    
   </div>
-
-  <!-- Inner -->
-  <div class="carousel-inner">
-    <!-- Single item -->
-    <div class="carousel-item active">
-      <img
-        src="https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg"
-        class="d-block w-100"
-        alt="..."
-      />
-      <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
-        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-      </div>
+  <div class="carousel-inner shadow rounded-3">
+    {% for p in imagess %}
+    <div class="carousel-item img-dt-edit {% if forloop.counter0 == 0 %} active {% endif %}">
+      <img src="{{p.images.url}}" class="d-block w-100 img-dt-edit" alt="..."  >
     </div>
-
-    <!-- Single item -->
-    <div class="carousel-item">
-      <img
-        src="https://mdbootstrap.com/img/Photos/Slides/img%20(22).jpg"
-        class="d-block w-100"
-        alt="..."
-      />
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Second slide label</h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </div>
-    </div>
-
-    <!-- Single item -->
-    <div class="carousel-item">
-      <img
-        src="https://mdbootstrap.com/img/Photos/Slides/img%20(23).jpg"
-        class="d-block w-100"
-        alt="..."
-      />
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Third slide label</h5>
-        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-      </div>
-    </div>
+    {% endfor %}
+    
   </div>
-  <!-- Inner -->
-
-  <!-- Controls -->
-  <button
-    class="carousel-control-prev"
-    type="button"
-    data-mdb-target="#carouselBasicExample"
-    data-mdb-slide="prev"
-  >
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
   </button>
-  <button
-    class="carousel-control-next"
-    type="button"
-    data-mdb-target="#carouselBasicExample"
-    data-mdb-slide="next"
-  >
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
 </div>
-<!-- Carousel wrapper -->
+  </div>
 
+  <div class="col-lg-6 mt-5">
+    <div class="row">
+      <div class="col">
+        {% for j in product_detail %}
+        <div>
+          <h1>{{j.product_name}}</h1>
+          <h1>{{j.product_price}}</h1>
+          <h5>รายละเอียด</h5>
+          <h6>{{j.product_description}}</h6>
+          <img src="{{ j.images.url }}" alt="">
+       
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<h1 class="mt-4">Product Recommend</h1>
+<div class="row">
+    
+    {% for b in products %}
+    {% for c in image_list %}
+
+    {% if b.id == c %}
+    {% if b.product_status %}
+    {% if b.product_recommend %}
+    <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-6 offset-md-0 col-lg-3 offset-lg-0 card-edit">
+        
+        <div class="card w-100 mt-4 card-edit shadow bg-body rounded-5  ">
+            <div >
+                <span class="badge bg-primary posit-edit">{{ b.product_category }}</span>
+            </div>
+            <a href="{% url 'cactusshop:detail' pk=b.id  %}">
+                <img src="{{ image_list | get_dict_value:c }}" height="150%" alt="image" class="img-edit w-100">
+            </a>
+            <div class="card-body text-center">
+                <h3 class=" font-edit">{{ b.product_name }}</h3>
+                <h3 class=" font-edit">{{ b.product_price|floatformat:2|intcomma }}</h3>
+                <a href="{% url 'cactusshop:detail' pk=b.id  %}" class="btn btn-info ">View detail</a>
+                
+            </div>
+    
+        </div>
+       
+    </div>
+    
+    {% endif %}
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+ 
+
+    
+</div>
 
 {% endblock %}

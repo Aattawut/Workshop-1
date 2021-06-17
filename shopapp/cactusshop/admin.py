@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, ProductRecommend, PostImage
+from .models import Category, ProductRecommend, PostImage, Contact
 from django.utils.html import format_html
 
 # Register your models here.
@@ -22,7 +22,7 @@ class PostImageAdmin(admin.StackedInline):
 
 @admin.register(ProductRecommend)
 class ProductRecommendAdmin(admin.ModelAdmin):
-    list_display = ['product_name','product_category','product_price','product_description','product_status', 'images', 'product_updated']
+    list_display = ['product_name','product_category','product_price','product_description','product_recommend' ,'product_status', 'images', 'product_updated']
     inlines = [PostImageAdmin]
     search_fields = ['product_name']
     list_filter = ['product_category','product_status']
@@ -45,6 +45,8 @@ class PostImageAdmin(admin.ModelAdmin):
 
 
 
+
+
     
 
 
@@ -53,11 +55,14 @@ class PostImageAdmin(admin.ModelAdmin):
 #     
 #     #inlines = [PostImageAdmin]
 
- 
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ['firstname','lastname','e_mail','message']
+
 
 
     
 
 admin.site.register(Category ,CategoryAdmin)
+admin.site.register(Contact,ContactAdmin)
 
 

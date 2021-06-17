@@ -1,25 +1,30 @@
 {% extends "layouts/base.html" %}
 
+{% load humanize %}
+
 {% load static %}
 {% load custom_tags %}
 {% block content %}
 
 <title>Home page</title>
-<h1>Category All</h1>
+<h1 class="mt-2"><span>Category All</span></h1>
 <div class="row">
     
     {% for a in categories %}
     {% if a.category_status %}
-    <div class="col-lg-3 card-edit">
+    
+    <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-6 offset-md-0 col-lg-3 offset-lg-0 card-edit">
        
         <div class="card w-100 mt-4 card-edit shadow bg-body rounded-5  ">
-            <a href="">
+            <a href="{% url 'cactusshop:category'%}?product_categoryid={{ a.id }}">
                 
                 <img src="{{ a.category_image.url }}" height="150%" alt="image" class="img-edit w-100 ">
                 
             </a>
             <div class="card-body text-center">
-                <h3 class=" font-edit">{{ a.category_name}}</h3>
+                <a class="a-tag" href="{% url 'cactusshop:category'%}?product_categoryid={{ a.id }}">
+                <h3 class=" font-edit2  ">{{ a.category_name}}</h3>
+                </a>
                 <!-- <a href="#" class="btn btn-info">View detail</a> -->
                 
             </div>
@@ -28,28 +33,35 @@
        
        
     </div>
+ 
     {% endif %}
     {% endfor %}
 
     
 </div>
 
-<h1 class="mt-4">Product Recommend</h1>
+<h1 class="mt-5"><span class="mt-2">Product Recommend</span> </h1>
 <div class="row">
     
     {% for b in products %}
     {% for c in image_list %}
 
     {% if b.id == c %}
-
-    <div class="col-lg-3 card-edit">
+    {% if b.product_status %}
+    {% if b.product_recommend %}
+    <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-6 offset-md-0 col-lg-3 offset-lg-0 card-edit">
+        
         <div class="card w-100 mt-4 card-edit shadow bg-body rounded-5  ">
-            <a href="">
-                <img src="{{ image_list | get_dict_value:c }}" height="150%" alt="image" class="img-edit w-100 ">
+            <div >
+                <span class="badge bg-primary posit-edit">{{ b.product_category }}</span>
+            </div>
+            <a href="{% url 'cactusshop:detail' pk=b.id  %}">
+                <img src="{{ image_list | get_dict_value:c }}" height="150%" alt="image" class="img-edit w-100">
             </a>
             <div class="card-body text-center">
                 <h3 class=" font-edit">{{ b.product_name }}</h3>
-                <a href="#" class="btn btn-info">View detail</a>
+                <h3 class=" font-edit">{{ b.product_price|floatformat:2|intcomma }}</h3>
+                <a href="{% url 'cactusshop:detail' pk=b.id  %}" class="btn btn-info ">View detail</a>
                 
             </div>
     
@@ -57,6 +69,8 @@
        
     </div>
     
+    {% endif %}
+    {% endif %}
     {% endif %}
     {% endfor %}
     {% endfor %}

@@ -1,0 +1,37 @@
+.breadcrumb {
+    /* padding: 10px 55px  !important; */
+    /* margin-top: 3px; */
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align:center;
+    line-height:50px;
+    color: rgb(255, 255, 255);
+    border-radius: 0%;
+    padding-left: 30px;
+
+    
+    
+}
+.breadcrumb-item{
+    color:aliceblue;
+}
+.bg-c-edit{
+    background-color: rgb(112, 138, 207);
+    border-radius: 11px;
+}
+.img-dt-edit{
+    height: 400px !important;
+    
+}
+a{
+    font-family: 'Mali', cursive;
+    
+  
+  }
+  .a-tag{
+    color: inherit !important; 
+    /* text-decoration: none !important; */
+  }
+.active{
+    color:rgb(46, 46, 46) !important;
+}

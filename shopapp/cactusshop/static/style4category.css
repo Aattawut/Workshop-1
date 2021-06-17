@@ -1,0 +1,45 @@
+.breadcrumb {
+    /* padding: 10px 55px  !important; */
+    /* margin-top: 3px; */
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align:center;
+    line-height:50px;
+    color: rgb(255, 255, 255);
+    border-radius: 0%;
+    padding-left: 30px;
+
+    
+    
+}
+.breadcrumb-item{
+    color:aliceblue;
+}
+.bg-c-edit{
+    background-color: rgb(112, 138, 207);
+    border-radius: 11px;
+}
+.card-edit{
+    border-radius: 25px !important;
+
+}
+.pagin-edit{
+    justify-content: center;
+}
+.dropd{
+    justify-content: right;
+    text-align:end;
+
+}
+a{
+    font-family: 'Mali', cursive;
+    
+  
+  }
+.a-tag{
+   color: inherit !important; 
+   /* text-decoration: none !important; */
+}
+.active{
+    color:rgb(46, 46, 46) !important;
+}

@@ -1,1 +1,122 @@
-<title>Contact</title>
+{% extends 'layouts/base.html' %}
+
+
+
+{% load crispy_forms_tags %}
+{% block content %}
+<title>Contact Page</title>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'style4contact.css' %}" />
+
+<!-- <h1 class="col-lg-8 offset-lg-2">Contact</h1>
+<div class="col-lg-6 offset-lg-3 mt-lg-3">
+    <form method="post" id="formcontact" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ formcontact|crispy }}
+        <div class="row">
+            <div class="col-6">
+                <a href="{% url 'cactusshop:index' %}" class="btn btn-secondary col-12 col-lg-5 mt-3 mb-3 ">Back to
+                    previous page</a>
+
+            </div>
+            <input type="hidden" id="input-hidden">
+            <div class="col"> -->
+
+                <!-- <button type="submit" class="btn btn-success col-12 col-lg-4 mt-3 mb-3 float-right">Save book</button> -->
+<!--                 
+                <button class="g-recaptcha btn btn-success col-12 col-lg-4 mt-3 mb-3 float-right"
+                    data-sitekey="6LcWfTgbAAAAANiVVC8Av_wGDq-ro2I3yIA5Qnpa" data-callback='onSubmit'
+                    data-action='submit'>Submit</button>
+            </div>
+
+        </div>
+
+    </form>
+
+</div> -->
+
+<div class="row">
+    <!-- <div class="col-12 col-sm-4  col-md-4 col-lg-3">
+        <h1>Contact Us</h1>
+    </div> -->
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12  bg-c-edit fw-normal">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item" aria-current="page">
+                <a class="a-tag"  href="{% url 'cactusshop:index' %}"> <b>
+                Home
+                </b>
+                </a>
+            </li>
+                <li class="breadcrumb-item active" aria-current="page">Contact</li>
+                {% for k in product_detail %}    
+  
+              <li class="breadcrumb-item" aria-current="page"> {{k.product_category}}</li>          
+              <li class="breadcrumb-item " aria-current="page"> {{k.product_name}}</li>          
+              {% endfor %}      
+            </ol>
+        </nav>
+    </div>
+  </div>
+  
+
+<form action="" id="formcontact" method="post" enctype="multipart/form-data" style="margin-bottom: 286px;" class="mt-5">
+    {% csrf_token %}
+    <div class="card ">
+        <div class="card-header">
+            <h3>Contact</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <input type="hidden" id="input-hidden">
+                <div class="col-lg-4">
+              
+                    <legend><h5>Firstname:</h5></legend>
+                    {{ formcontact.firstname }}
+                    
+        
+                </div>
+                <div class="col-lg-4">
+                    <legend><h5>Lastname:</h5></legend>
+                    {{ formcontact.lastname }}
+                </div>
+                <div class="col-lg-4">
+                    <legend><h5>Email:</h5></legend>
+                    {{ formcontact.e_mail }}
+                </div>   
+                <div class="col-lg-12 mt-2">
+                    <legend><h5>Message:</h5></legend>
+                    {{ formcontact.message }}
+    
+                </div>            
+            </div>          
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="card-footer text-muted text-end ">
+                    <!-- <button type="submit" class="btn btn-success "><h5>Save</h5></button> -->
+                    <button class="g-recaptcha btn btn-success "
+                    data-sitekey="6LcWfTgbAAAAANiVVC8Av_wGDq-ro2I3yIA5Qnpa" data-callback='onSubmit'
+                    data-action='submit'>Submit</button>
+                    <!-- <input class="float-right" type="submit" value="Submit"> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<script>
+    function onSubmit(token) {
+        //   document.getElementById("demo-form").submit();
+        console.log(token)
+        $('#input-hidden').val(token)
+        $('#formcontact').submit()
+    }
+</script>
+
+
+
+
+<script src="https://www.google.com/recaptcha/api.js?render=6LcWfTgbAAAAANiVVC8Av_wGDq-ro2I3yIA5Qnpa"></script>
+{% endblock %}

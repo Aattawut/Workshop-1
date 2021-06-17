@@ -9,4 +9,6 @@ urlpatterns = [
     # url('home/', views.product_view, name='product-list'),
     path('contact/', views.contact, name='contact'),
     path('category/', views.category, name='category'),
+    path('search/', views.base, name='search'),
+    path('detail/<int:pk>/', views.detail, name='detail'),
 ]

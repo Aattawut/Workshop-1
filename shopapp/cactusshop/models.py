@@ -23,6 +23,7 @@ class Category(models.Model):
 
 class ProductRecommend(models.Model):    
     product_name = models.CharField(max_length=250)
+    # slug = models.SlugField(max_length=200, unique=True,defa)
     product_category = models.ForeignKey(Category,default=None,blank=True, null=True, on_delete=models.CASCADE)
 
     product_description = models.TextField(max_length=255, null=True, blank=True)
@@ -35,7 +36,7 @@ class ProductRecommend(models.Model):
     product_updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        verbose_name_plural = 'Product_Recommend'
+        verbose_name_plural = 'Product'
  
     def __str__(self):
         return str(self.product_name)
@@ -59,3 +60,9 @@ class PostImage(models.Model):
             return format_html('<img src="' + self.images.url + '" height="100px">')
         return ''
     show_image_product.allow_tags = True
+
+class Contact(models.Model):
+    firstname = models.CharField(max_length=250)
+    lastname = models.CharField(max_length=250)
+    e_mail = models.EmailField(max_length=70)
+    message = models.TextField(max_length=255, null=True, blank=True)

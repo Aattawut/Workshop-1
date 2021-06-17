@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,9 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cactusshop.templatetags',
+    'django.contrib.humanize',
+    'crispy_forms',
     'shopapp',
     'cactusshop',
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -135,3 +139,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+RECAPTCHA_SECRET_TOKEN = "6LcWfTgbAAAAAOYgcE1AfLtR1SsiISbjdurTEzlN"
+
+RECAPTCHA_SITE_TOKEN= "6LcWfTgbAAAAANiVVC8Av_wGDq-ro2I3yIA5Qnpa"
