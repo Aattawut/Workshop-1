@@ -230,4 +230,11 @@ a{
 .bg-home{
   background-color: #5f5f5f;
 }
+.fibt{
+position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
+
+}

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, ProductRecommend, PostImage, Contact
+from .models import Category, ProductRecommend, PostImage, Contact, Comment
 from django.utils.html import format_html
 
 # Register your models here.
@@ -58,11 +58,15 @@ class PostImageAdmin(admin.ModelAdmin):
 class ContactAdmin(admin.ModelAdmin):
     list_display = ['firstname','lastname','e_mail','message']
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['product_comment','message','rating']
+
 
 
     
 
 admin.site.register(Category ,CategoryAdmin)
 admin.site.register(Contact,ContactAdmin)
+admin.site.register(Comment,CommentAdmin)
 
 

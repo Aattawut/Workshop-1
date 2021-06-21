@@ -6,8 +6,38 @@
 {% load custom_tags %}
 {% block content %}
 
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@1,300&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}" />
+
 <title>Home page</title>
-<h1 class="mt-2"><span>Category All</span></h1>
+
+<link href="https://fonts.googleapis.com/css?family=Vibur" rel="stylesheet">
+
+<div class="container-fluid mx-0 p-0 " class="aft-bg-head" >    
+ 
+
+    <img src="/media/cabinets-wall-tv-living-room.jpg" alt="" class="bg-head">
+    <div class="bef-bg-head teststyle col-1 col-sm-2">
+        <!-- <h1 class="font-head">CactusShop</h1> -->
+        <h1 class="font-textt col-1">My Plant</h1>
+    
+    </div>
+
+    
+</div>   
+
+
+
+ 
+<div class="container-fluid">
+
+
+<div class="container ">
+
+
+<h1 class="pt-5 pb-5 mb-0 text-center mt-2"><span>Category All</span></h1>
 <div class="row">
     
     {% for a in categories %}
@@ -22,7 +52,7 @@
                 
             </a>
             <div class="card-body text-center">
-                <a class="a-tag" href="{% url 'cactusshop:category'%}?product_categoryid={{ a.id }}">
+                <a class="a-tagg" href="{% url 'cactusshop:category'%}?product_categoryid={{ a.id }}">
                 <h3 class=" font-edit2  ">{{ a.category_name}}</h3>
                 </a>
                 <!-- <a href="#" class="btn btn-info">View detail</a> -->
@@ -40,8 +70,8 @@
     
 </div>
 
-<h1 class="mt-5"><span class="mt-2">Product Recommend</span> </h1>
-<div class="row">
+<h1 class="pt-5 pb-5 mb-0 text-center mt-3">Product Recommend </h1>
+<div class="row mb-5">
     
     {% for b in products %}
     {% for c in image_list %}
@@ -76,8 +106,8 @@
     {% endfor %}
  
 
-    
 </div>
 
-
+</div>
+</div>
 {% endblock %}

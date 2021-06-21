@@ -7,6 +7,26 @@
 <title>Contact Page</title>
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'style4contact.css' %}" />
+<link href="https://fonts.googleapis.com/css?family=Vibur" rel="stylesheet">
+
+
+
+
+  
+
+
+<div class="container-fluid bg-content">
+<!--    
+        <div class="bef-bg-head teststyle">
+    
+            <h1 class="font-textt mt-5">Contact us</h1>
+    
+        </div>
+
+  
+ -->
+
+<div class="container" >
 
 <!-- <h1 class="col-lg-8 offset-lg-2">Contact</h1>
 <div class="col-lg-6 offset-lg-3 mt-lg-3">
@@ -35,11 +55,11 @@
 
 </div> -->
 
-<div class="row">
+<div class="row" style="margin-bottom: 13.93rem;">
     <!-- <div class="col-12 col-sm-4  col-md-4 col-lg-3">
         <h1>Contact Us</h1>
     </div> -->
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12  bg-c-edit fw-normal">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12  bg-c-edit fw-normal mt-2">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item" aria-current="page">
@@ -60,12 +80,14 @@
   </div>
   
 
-<form action="" id="formcontact" method="post" enctype="multipart/form-data" style="margin-bottom: 286px;" class="mt-5">
+<form action="" id="formcontact" method="post" enctype="multipart/form-data"  class="mt-5 ">
     {% csrf_token %}
     <div class="card ">
         <div class="card-header">
             <h3>Contact</h3>
         </div>
+        <!-- {{formcontact.errors}} -->
+
         <div class="card-body">
             <div class="row">
                 <input type="hidden" id="input-hidden">
@@ -117,6 +139,8 @@
 
 
 
+</div>
+</div>
 
 <script src="https://www.google.com/recaptcha/api.js?render=6LcWfTgbAAAAANiVVC8Av_wGDq-ro2I3yIA5Qnpa"></script>
 {% endblock %}

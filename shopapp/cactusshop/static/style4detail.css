@@ -35,3 +35,25 @@ a{
 .active{
     color:rgb(46, 46, 46) !important;
 }
+
+.bg-dark{
+    background-color: #5f5f5f !important;
+    color: black !important;
+  }
+  .nav-link {
+    font-size: 20px;
+    font-weight: 900;
+  }
+  .ss{
+    font-family: "Vibur", cursive;
+    font-size: 35px;
+  }
+
+  #showhideForm {
+    display: none;
+  
+    margin-bottom: 10px;
+  
+   
+  }
+  

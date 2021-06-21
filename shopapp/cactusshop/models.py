@@ -24,8 +24,8 @@ class Category(models.Model):
 class ProductRecommend(models.Model):    
     product_name = models.CharField(max_length=250)
     # slug = models.SlugField(max_length=200, unique=True,defa)
-    product_category = models.ForeignKey(Category,default=None,blank=True, null=True, on_delete=models.CASCADE)
-
+    product_category = models.ForeignKey(Category, related_name='products_count' ,default=None,blank=True, null=True, on_delete=models.CASCADE)
+    
     product_description = models.TextField(max_length=255, null=True, blank=True)
 
     # product_image = models.FileField(blank=True)
@@ -66,3 +66,11 @@ class Contact(models.Model):
     lastname = models.CharField(max_length=250)
     e_mail = models.EmailField(max_length=70)
     message = models.TextField(max_length=255, null=True, blank=True)
+
+class Comment(models.Model):
+    product_comment = models.ForeignKey(ProductRecommend, default=None, on_delete=models.CASCADE,related_name='comments')
+    message = models.TextField(max_length=500, null=True, blank=True)
+    rating = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.message

@@ -3,17 +3,36 @@
 {% load static %}
 {% load custom_tags %}
 
-<title>Category</title>
 
 {% block content %}
+<title>Category</title>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'style4category.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'style4category.css' %}" />
+<link href="https://fonts.googleapis.com/css?family=Vibur" rel="stylesheet">
+
+
+<div class="container-fluid mx-0 p-0 " class="aft-bg-head" >       
+       
+    <!-- <img src="/media/wall-tv-living-room-with-white-walls.jpg" alt="" class="bg-head"> -->
+    <img src="/media/tv-wall-mount-cabinet-modern-living-room-concrete-wall-3d-rendering.jpg" alt="" class="bg-head">
+    <!-- <img src="/media/123.jpg" alt="" class="bg-head"> -->
+        <div class="bef-bg-head teststyle">
+           
+            <h1 class="font-textt ">My Plant</h1>
+    
+    </div>
+</div>   
+
+<div class="container">
+
 
 <div class="row">
-    <div class="col-12 col-sm-4  col-md-4 col-lg-2">
-        <h1>Category</h1>
+    <div class="col-12 col-sm-4  col-md-4 col-lg-3 col-xl-2">
+        
+        <h1  id="opening">Category</h1>
+
     </div>
-    <div class="col-12 col-sm-8 col-md-8 col-lg-10  bg-c-edit fw-normal">
+    <div class="col-12 col-sm-8 col-md-8 col-lg-9 col-xl-10 bg-c-edit fw-normal">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item" aria-current="page">
@@ -54,14 +73,14 @@
     
     <div class="col-12 col-sm-4 col-md-4 col-lg-2 col-xl-2 mt-3 card-edit ">
         <div class="list-group mt-2 ">
-            <a href="{% url 'cactusshop:category' %}" class="list-group-item list-group-item-action {% if not categ_id %}active{% endif %}" aria-current="true">All</a>
+            <a href="{% url 'cactusshop:category' %}" class="list-group-item list-group-item-action list-group-item-primary d-flex justify-content-between {% if not categ_id %}active{% endif %}" aria-current="true">All  
+            <span class="badge bg-primary rounded-pill">{{products_2.count}}</span>
+            </a>
             {% for a in category %}
-            <a href="{% url 'cactusshop:category'%}?product_categoryid={{ a.id }}" class="list-group-item list-group-item-action {% if categ_id|add:'0' == a.id %}active{% endif %}" aria-current="true">{{ a.category_name }}</a>
+            <a href="{% url 'cactusshop:category'%}?product_categoryid={{ a.id }}" class="list-group-item list-group-item-action list-group-item-primary d-flex justify-content-between {% if categ_id|add:'0' == a.id %}active{% endif %}" aria-current="true">{{ a.category_name }}
+                <span class="badge bg-primary rounded-pill ">{{a.products_count.count}}</span>
+            </a>
             {% endfor %}
-            <!-- <a href="#" class="list-group-item list-group-item-action">A second link item</a>
-            <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-            <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-            <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">A disabled link item</a> -->
         </div>
     </div> 
   
@@ -69,9 +88,19 @@
 
     
     <div class="col-12 col-sm-8 col-md-8 col-lg-10 col-xl-10">
+
         
-        <div class="row mt-2 flex-row-reverse ">
-            <div class="col-lg-2 col-xl-2 ">        
+        <div class="row mt-2 justify-content-between ">
+            <div class="col-lg-2 col-xl-2 mt-2">
+                
+                <a class="a-tag" href="{% url 'cactusshop:category'%}{% if categ_id is not None %}?product_categoryid={{ categ_id }} {% endif %}">ล้างการค้นหา</a>
+               
+            </div>
+            <div class="col-lg-2 col-xl-6 mt-2">
+                               
+                <h6 class="font-edit" style="white-space: nowrap;"><b>{{search}} </b> &nbsp;&nbsp;&nbsp; <b>{{product_counts}}</b> </h6>
+            </div>
+            <div class="col-lg-4 col-xl-2 ">        
                 <div class="dropdown">
                     
                     <button class="btn btn-secondary dropdown-toggle float-end" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -80,9 +109,9 @@
 
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                        
-                      <li><a class="dropdown-item " href="{% url 'cactusshop:category' %}?{% if categ_id != none %}product_categoryid={{categ_id}}&{% endif %}search={{search}}&sort=high">ราคามาก>>น้อย</a></li>
-                   
-                      <li><a class="dropdown-item" href="{% url 'cactusshop:category' %}?{% if  categ_id != none  %}product_categoryid={{categ_id}}&{% endif %}search={{search}}&sort=low">ราคาน้อย>>มาก</a></li>
+                      <li><a class="dropdown-item " href="{% url 'cactusshop:category' %}?product_categoryid={{categ_id}}&search={{search}}&sort=high">ราคามาก>>น้อย</a></li>
+                        
+                      <li><a class="dropdown-item" href="{% url 'cactusshop:category' %}?product_categoryid={{categ_id}}&search={{search}}&sort=low">ราคาน้อย>>มาก</a></li>
                     </ul>
                   </div>
             </div>
@@ -138,33 +167,17 @@
     </div>
 
    
-    
-    <!-- <ul class="pagination pagin-edit mt-5">
-        {% if page_obj.has_previous %}
-        <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Previous</a></li>
-        {% endif %}
-
-        {% for i in page_obj.paginator.page_range %}
-        <li class="page-item {% if page_obj.number == i %}active{% endif %}"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-        {% endfor %}
-
-        {% if page_obj.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}">Next</a></li>
-        {% endif %}
-     </ul> -->
-
-    <!-- <nav aria-label="Page navigation example "> -->
     <ul class="pagination pagin-edit mt-4">
         {% if productt.has_previous %}
-        <li class="page-item"><a class="page-link" href="?page={{productt.previous_page_number}}">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{productt.previous_page_number}}#opening">Previous</a></li>
         {% endif %}
 
         {% for i in productt.paginator.page_range %}
-        <li class="page-item {% if productt.number == i %}active{% endif %}"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+        <li class="page-item {% if productt.number == i %}active{% endif %}"><a class="page-link" href="?page={{ i }}#opening">{{ i }}</a></li>
         {% endfor %}
 
         {% if productt.has_next %}
-        <li class="page-item"><a class="page-link" href="?page={{productt.next_page_number}}">Next</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{productt.next_page_number}}#opening">Next</a></li>
         {% endif %}
      </ul>
 
@@ -174,7 +187,7 @@
 
     
 </div>
-
+</div>
 
 
 {% endblock %}

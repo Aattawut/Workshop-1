@@ -1,12 +1,15 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.template import loader
-from .models import Category, PostImage, ProductRecommend
+from .models import Category, PostImage, ProductRecommend, Comment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .forms import ContactForm
+from .forms import ContactForm, CommentForm
 from django.contrib import messages
 from django.conf import settings
 import requests
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django import forms
+from django.contrib.auth import login, logout
 
 # Create your views here.
 
@@ -30,11 +33,14 @@ def index(request):
         # ถ้ามีค่า 
         product_link = product_link.filter(product_category_id=categ_id_home)
 
+  
+
     return render(request, 'index.html',{
         'categories':categories,
         'products':products,
         'image_list': image_list,
         'categ_id_home':categ_id_home,
+        # 'search':search,
       })
 
 def category(request):
@@ -43,6 +49,7 @@ def category(request):
     image_list_2 = {}
     # products_2 = ProductRecommend.objects.order_by('product_price')
     products_2 = ProductRecommend.objects.filter(product_status=True)
+    product_counts = ''
 
     productt = ProductRecommend.objects.filter(product_status=True)
     productt = ProductRecommend.objects.order_by('product_price')
@@ -60,12 +67,20 @@ def category(request):
     # print(category_nameid)
     if categ_id:
         # ถ้ามีค่า 
-        productt = productt.filter(product_category_id=categ_id)
+        print(categ_id)
+        productt = productt.filter(product_category=categ_id)
 
 
     search = request.GET.get('search','')
+    
     if search != '':
+        
+        product_counts = productt.filter(product_name__icontains=search)
         productt = productt.filter(product_name__icontains=search)
+        search = 'คำที่ค้นหา: '+ str(search)
+        product_counts = 'จำนวนผลลัพธ์การค้นหา: '+ str(product_counts.count())
+        print(product_counts)
+       
     import sys
     # print('sdfsdf',search,file=sys.stderr)
     
@@ -90,6 +105,7 @@ def category(request):
 
 
     return render(request, 'category.html',{
+        'product_counts':product_counts,
         'category':category,
         'products_2':products_2,
         'image_list_2': image_list_2,
@@ -101,21 +117,28 @@ def category(request):
         'search':search,
     })
 
-def base(request):
-
-    categories = Category.objects.all()
+def base(request,pk=0):
+    productt = ProductRecommend.objects.filter(product_status=True)
+    productt = ProductRecommend.objects.order_by('product_price')
     
+    categories = Category.objects.all()
    
+    search = request.GET.get('search','')
+    if search != '':
+        productt = productt.filter(product_name__icontains=search)
+       
 
     productt = ProductRecommend.objects.filter(product_status=True)
-    categ_id = request.GET.get('product_categoryid')
-    if categ_id:
+    categ_id_base = request.GET.get('product_categoryid',0)
+    id_search = categ_id_base
+    if categ_id_base:
         # ถ้ามีค่า 
-        productt = productt.filter(product_category_id=categ_id)
+        productt = productt.filter(product_category=categ_id_base)
     return render(request, 'base.html',{
         'categories':categories,
         'categ_id_base':categ_id_base,
         'search':search,
+        'id_search':id_search,
            
     })
 
@@ -134,6 +157,8 @@ def detail(request,pk):
     # products = ProductRecommend.objects.all()
     products = ProductRecommend.objects.order_by('product_price')
 
+    
+
     for product in products:
         postimage = PostImage.objects.filter(post=product).first()
         image_list[product.id] = postimage.images.url
@@ -144,6 +169,18 @@ def detail(request,pk):
         # ถ้ามีค่า 
         productt = productt.filter(product_category_id=categ_id)
 
+    form = Comment.objects.all()
+
+    formcomment = CommentForm()
+
+    if request.method == 'POST':
+        formcomment = CommentForm(request.POST)
+        if formcomment.is_valid():
+            form = formcomment.save(commit=False)
+            form.save
+            messages.success(request, 'Save success')
+
+
     return render(request, 'detail.html',{
         'product_detail':product_detail,
         'imagess':imagess,
@@ -151,6 +188,8 @@ def detail(request,pk):
         'image_list':image_list,
         'products':products,
         'categ_id':categ_id,
+        'formcomment':formcomment,
+        'form':form,
         
     })
 
@@ -175,7 +214,7 @@ def contact(request):
            
         
         
-        formcontact = ContactForm()
+        # formcontact = ContactForm()
 
 
     return render(request, 'contact.html',{
@@ -183,15 +222,47 @@ def contact(request):
         'categories':categories,
     })
 
-# def detail_view(request, id):
-#     post = get_object_or_404(ProductRecommend, id=id)
-#     photos = PostImage.objects.filter(post=post)
-#     return render(request, 'detail.html', {
-#         'post':post,
-#         'photos':photos,
+# def comment(request):
+#     formcomment = CommentForm()
+
+#     return render(request,'detail.html',{
+#         'formcomment':formcomment,
 #     })
 
+def login_view(request):
+    categories = Category.objects.all()
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('cactusshop:index')
+    
+    else:
+        form = AuthenticationForm()
+    return render(request, 'account/login.html',{
+        'form':form,
+        'categories':categories,
+    })
 
-   
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request) 
+        return redirect('cactusshop:index')
+
+def signup_view(request):
+    categories = Category.objects.all()
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('cactusshop:index')
+    else:
+        form = UserCreationForm()
+    return render(request, 'account/signup.html', {
+        'form':form,
+        'categories':categories,
+        })
     
     
