@@ -42,8 +42,10 @@
           <li class="breadcrumb-item" aria-current="page">
             <a class="a-tag"
               href="{% url 'cactusshop:category' %}?{% if  categ_id == none  %}product_categoryid={{k.product_category_id}}{% endif %}">
+              <b>
 
-              {{k.product_category}}
+                {{k.product_category}}
+              </b>
 
 
             </a>
@@ -58,7 +60,7 @@
   </div>
 
 
-  <div class="row">
+  <div class="row mt-5">
     <div class="col-lg-6 mt-5">
 
       <div id="carouselExampleIndicators" class="carousel slide " data-bs-ride="carousel">
@@ -95,23 +97,30 @@
         <div class="col">
           {% for j in product_detail %}
           <div>
-            <h1>{{j.product_name}}</h1>
-            <h1>{{j.product_price}}</h1>
-            <h5>รายละเอียด</h5>
-            <h6>{{j.product_description}}</h6>
-            <img src="{{ j.images.url }}" alt="">
-
+            <h1 class="mt-auto bg-info shadow rounded px-3">{{j.product_name}}</h1>
+            <hr>
+            <h1 class="mt-5 px-3 ">{{j.product_price}} บาท</h1>
+            <h5 class="px-5" >รายละเอียด</h5>
+            <h6 class=" px-3">{{j.product_description}}</h6>
+            <!-- <img src="{{ j.images.url }}" alt=""> -->
+            
           </div>
           {% endfor %}
         </div>
+        <div class="col-12 mt-5">
+          <hr>
+          <button class="btn btn-outline-primary btn-lg mt-lg-1 mt-sm-0 shadow rounded">Add to Cart</button>
+          <button class="btn btn-primary btn-lg mt-lg-1 mt-sm-0 shadow rounded">Buy</button>
+        </div>
       </div>
+ 
 
     </div>
   </div>
 
 
-  <h1 class="mt-4">Product Recommend</h1>
-  <div class="row">
+  <div class="row tag">
+  <h1 style="margin-top: 100px;">Product Recommend</h1>
 
     {% for b in products %}
     {% for c in image_list %}
@@ -158,7 +167,7 @@
       <div class="row">
         <div class="col">
           
-          {% for f in form %}
+          {% for f in comments %}
           {% for g in product_detail %}
           {% if f.product_comment.id == g.id %}
           
@@ -186,7 +195,7 @@
         <button class="showbtn btn btn-primary">Show Form</button>
         <button class="hidebtn btn btn-primary">Hide Form</button>
       </div>
-      <div class="col-12 col-lg-12 col-xl-12">
+      <div class="col-12 col-lg-12 col-xl-12 ">
         <form action="" method="post" id="showhideForm" enctype="multipart/form-data">
           <h1 class="">Leave a review</h1>
           {% csrf_token %}
@@ -209,6 +218,15 @@
 
 <script>
   $(document).ready(function () {
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+    $("#showhideForm").submit(function(e) {
+      var message = $('#id_message').val()
+      var rating = $('#id_rating').val()
+
+      
+  });
     $('.showbtn').click(function () {
       $('#showhideForm').show(500);
     });
@@ -216,6 +234,24 @@
       $('#showhideForm').hide(500);
     });
   });
-</script>
 
+</script>
+<script>
+  $(document).on("scroll", function() {
+    var pageTop = $(document).scrollTop();
+    var pageBottom = pageTop + $(window).height();
+    var tags = $(".tag");
+  
+    for (var i = 0; i < tags.length; i++) {
+      var tag = tags[i];
+  
+      if ($(tag).position().top < pageBottom) {
+        $(tag).addClass("visible");
+      } else {
+        $(tag).removeClass("visible");
+      }
+    }
+  });
+  
+  </script>
 {% endblock %}

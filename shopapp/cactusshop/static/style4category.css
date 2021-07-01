@@ -125,3 +125,32 @@ a{
   }
   
 
+  @media screen and (max-width: 1050px) {
+    .font-textt {
+      font-size: 160px;
+      margin-left: -100px;
+      margin-top:30px;
+    }
+  }
+  @media screen and (max-width: 750px) {
+    .font-textt {
+      font-size: 100px;
+      margin-top:70px;
+      margin-left: -40px;
+    }
+  }
+  @media screen and (max-width: 550px) {
+    .font-textt {
+      font-size: 80px;
+      margin-top:80px;
+      margin-left: -30px;
+    }
+  }
+  @media screen and (max-width: 350px) {
+    .font-textt {
+      font-size: 60px;
+      margin-top:100px;
+      margin-left: -30px;
+    }
+  }
+  

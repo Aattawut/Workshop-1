@@ -73,7 +73,7 @@
     
     <div class="col-12 col-sm-4 col-md-4 col-lg-2 col-xl-2 mt-3 card-edit ">
         <div class="list-group mt-2 ">
-            <a href="{% url 'cactusshop:category' %}" class="list-group-item list-group-item-action list-group-item-primary d-flex justify-content-between {% if not categ_id %}active{% endif %}" aria-current="true">All  
+            <a href="{% url 'cactusshop:category' %}" class="list-group-item list-group-item-action list-group-item-primary d-flex justify-content-between {% if categ_id == 'None' %}active{% endif %}" aria-current="true">All  
             <span class="badge bg-primary rounded-pill">{{products_2.count}}</span>
             </a>
             {% for a in category %}
@@ -129,7 +129,7 @@
     
             <div class="col-6 col-lg-3 col-lg-4 col-xl-3 mt-2 ">
                 <div class="card card-edit shadow bg-body">
-                    <a href="{% url 'cactusshop:category' %}">
+                    <a href="{% url 'cactusshop:detail' pk=b.id %}">
                     
                         <img src="{{ image_list_2 | get_dict_value:c }}" height="150%" alt="image" class="img-edit w-100 ">
                         

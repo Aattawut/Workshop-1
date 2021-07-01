@@ -12,10 +12,12 @@ class ContactForm(forms.ModelForm):
         fields = ['firstname','lastname','e_mail','message',]
 
 class CommentForm(forms.ModelForm):
-    product_comment = forms.CharField(max_length=100)
-    message = forms.Textarea()
-    rating = forms.IntegerField()
+    # product_comment = forms.CharField(max_length=100)
+    # message = forms.Textarea()
+    # rating = forms.IntegerField()
     
     class Meta:
         model = Comment
-        fields = ['product_comment','message','rating']
+        fields = ['message','rating']
+
+    

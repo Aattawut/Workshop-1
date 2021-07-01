@@ -37,8 +37,11 @@
 <div class="container ">
 
 
-<h1 class="pt-5 pb-5 mb-0 text-center mt-2"><span>Category All</span></h1>
-<div class="row">
+
+
+    <h1 class="pt-5 pb-5 mb-0 text-center mt-3"><span>Category All</span></h1>
+    <div class="row tag">
+
     
     {% for a in categories %}
     {% if a.category_status %}
@@ -70,8 +73,10 @@
     
 </div>
 
+
 <h1 class="pt-5 pb-5 mb-0 text-center mt-3">Product Recommend </h1>
-<div class="row mb-5">
+<!-- <section class="tag" style="margin-bottom: 200px;"> -->
+<div class="row mb-5 tag">
     
     {% for b in products %}
     {% for c in image_list %}
@@ -110,4 +115,23 @@
 
 </div>
 </div>
+
+<script>
+$(document).on("scroll", function() {
+  var pageTop = $(document).scrollTop();
+  var pageBottom = pageTop + $(window).height();
+  var tags = $(".tag");
+
+  for (var i = 0; i < tags.length; i++) {
+    var tag = tags[i];
+
+    if ($(tag).position().top < pageBottom) {
+      $(tag).addClass("visible");
+    } else {
+      $(tag).removeClass("visible");
+    }
+  }
+});
+
+</script>
 {% endblock %}

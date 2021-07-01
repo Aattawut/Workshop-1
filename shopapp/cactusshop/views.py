@@ -45,7 +45,9 @@ def index(request):
 
 def category(request):
 
-    category = Category.objects.all()
+    # category = Category.objects.all()
+    category = Category.objects.filter(category_status=True)
+    category = Category.objects.order_by('category_name')
     image_list_2 = {}
     # products_2 = ProductRecommend.objects.order_by('product_price')
     products_2 = ProductRecommend.objects.filter(product_status=True)
@@ -63,12 +65,16 @@ def category(request):
         sort_2 = 'ราคาน้อยไปมาก'
 
 
-    categ_id = request.GET.get('product_categoryid')
+    categ_id = request.GET.get('product_categoryid','None')
     # print(category_nameid)
-    if categ_id:
+    if categ_id != 'None':
         # ถ้ามีค่า 
-        print(categ_id)
-        productt = productt.filter(product_category=categ_id)
+        productt = productt.filter(product_category_id=categ_id)
+    # if categ_id == 'None':
+    #     productt = ProductRecommend.objects.filter(product_status=True)
+    #     productt = ProductRecommend.objects.order_by('product_price')
+    # else:
+    #     productt = productt.filter(product_category_id=categ_id)
 
 
     search = request.GET.get('search','')
@@ -85,7 +91,7 @@ def category(request):
     # print('sdfsdf',search,file=sys.stderr)
     
     
-    categories = Category.objects.all()
+    categories = Category.objects.order_by('category_name')
 
     for p in products_2:
         postimage_2 = PostImage.objects.filter(post=p).first()
@@ -151,6 +157,7 @@ def detail(request,pk):
     product_detail = ProductRecommend.objects.filter(product_status=True,pk=pk)
     # products_2 = ProductRecommend.objects.order_by('product_price')
     post = get_object_or_404(ProductRecommend, pk=pk)
+    print(post)
     imagess = PostImage.objects.filter(post=post)
     
     image_list = {}
@@ -169,16 +176,19 @@ def detail(request,pk):
         # ถ้ามีค่า 
         productt = productt.filter(product_category_id=categ_id)
 
-    form = Comment.objects.all()
-
+    comments = Comment.objects.all()
+    msg_detail = ''
     formcomment = CommentForm()
-
+    # import sys
+    # print('test',file=sys.stderr)
     if request.method == 'POST':
         formcomment = CommentForm(request.POST)
         if formcomment.is_valid():
             form = formcomment.save(commit=False)
-            form.save
-            messages.success(request, 'Save success')
+            form.product_comment = post
+            form.save()
+            msg_detail = messages.success(request, 'Save success')
+            formcomment = CommentForm()
 
 
     return render(request, 'detail.html',{
@@ -189,7 +199,8 @@ def detail(request,pk):
         'products':products,
         'categ_id':categ_id,
         'formcomment':formcomment,
-        'form':form,
+        'comments':comments,
+        'msg_detail':msg_detail,
         
     })
 
@@ -207,14 +218,10 @@ def contact(request):
                 form = formcontact.save(commit=False)
                 form.save()
                 messages.success(request, 'Save success')
+                formcontact = ContactForm()
         else:
             messages.error(request, 'Save failed')
-
         
-           
-        
-        
-        # formcontact = ContactForm()
 
 
     return render(request, 'contact.html',{
